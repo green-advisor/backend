@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('shops', [ShopController::class, 'index']);
+    Route::get('shops/{shop}', [ShopController::class, 'show']);
+
     Route::get('elevation', [PlantController::class, 'elevation']);
     Route::delete('logout', [AuthController::class, 'logout']);
 });
