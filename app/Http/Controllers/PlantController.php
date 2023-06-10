@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class PlantController extends Controller
 {
+    // get elevation 
     public function elevation(Request $request)
     {
         $long = $request->query('long');

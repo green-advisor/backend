@@ -18,15 +18,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {
+
+    // get user profil
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    // get all shops and detail of shop
     Route::get('shops', [ShopController::class, 'index']);
     Route::get('shops/{shop}', [ShopController::class, 'show']);
 
+    // get elevation
     Route::get('elevation', [PlantController::class, 'elevation']);
+
+    // logout
     Route::delete('logout', [AuthController::class, 'logout']);
 });
-Route::post('login', [AuthController::class, 'login']);
 
+// login and logout
+Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
