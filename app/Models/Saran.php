@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Plant extends Model
+class Saran extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi'];
+    protected $fillable = ['tanaman', 'iklim'];
 }

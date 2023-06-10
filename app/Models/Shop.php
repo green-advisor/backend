@@ -9,5 +9,5 @@ class Shop extends Model
 {
     use HasFactory;
 
-    protected $guarded;
+    protected $fillable = [ 'foto', 'nama_barang', 'harga', 'deskripsi', 'referensi' ];
 }
