@@ -43,7 +43,7 @@ class PlantController extends Controller
         } elseif ($pembulatan > 2500) {
             $iklim = 'dingin';
         }
-        $saran = Saran::select('nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
+        $saran = Saran::select('foto', 'nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
         return response()->json(
             [
                 'status' => 'success',
@@ -72,16 +72,18 @@ class PlantController extends Controller
         $filename = basename($imageUrl);
         $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
 
-        $endpoint = 'http://localhost:3000/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
+        $endpoint = 'http://34.128.101.63:81/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
 
         $response = Http::get($endpoint);
+
+        $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $response)->get();
 
         if ($response->successful()) {
             $responseData = $response->body();
             return response()->json(
                 [
                     'status' => 'success',
-                    'data' => $responseData
+                    'data' => $data
                 ]
             );
         } else {
