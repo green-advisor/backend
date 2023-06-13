@@ -6,12 +6,25 @@ use App\Models\Plant;
 use App\Models\Saran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Google\Cloud\Storage\StorageClient;
 
 class PlantController extends Controller
 {
-    // get elevation 
+    // get elevation
     public function elevation(Request $request)
     {
+        $validator = Validator::make($request->query(), [
+            'long' => 'required',
+            'lat' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            // Tangani jika validasi gagal
+            return response()->json(['error' => 'Parameters "long" and "lat" are required.'], 400);
+        }
+
         $long = $request->query('long');
         $lat = $request->query('lat');
 
@@ -31,12 +44,49 @@ class PlantController extends Controller
             $iklim = 'dingin';
         }
         $saran = Saran::select('nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
-        return response()->json($saran);
+        return response()->json(
+            [
+                'status' => 'success',
+                'data' => $saran
+            ]
+
+        );
     }
 
     // get specified by id 
-    public function predict(Plant $plant)
+    public function predict(Request $request)
     {
-        return response()->json($plant);
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpg|max:4096',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()
+            ], 400);
+        }
+        $image = $request->file('image');
+        $path = $image->store('images', 'gcs');
+        $imageUrl = Storage::disk('gcs')->url($path);
+
+
+        $filename = basename($imageUrl);
+        $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+
+        $endpoint = 'http://localhost:3000/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
+
+        $response = Http::get($endpoint);
+
+        if ($response->successful()) {
+            $responseData = $response->body();
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => $responseData
+                ]
+            );
+        } else {
+            $statusCode = $response->status();
+            return $statusCode;
+        }
     }
 }

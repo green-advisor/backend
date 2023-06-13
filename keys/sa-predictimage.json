@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "test-green-advisor",
+  "private_key_id": "93daf3fcac4247b30fa7783436bdf510be91958f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQD5CaGn4ZZZOaUZ\ndAuKL2jzjHukilJXoJsM6hOC47emrS3+s7w0IdnfnUfPc/NBCyUxIz6c8yXGx5/E\nlzKYNeoWaDfD9vdiudhnxg66ISwgRm2snJ89tJAdsLVWbrHpop0nBqyVv6ymNWRs\n28GoEBuHsbpmvyUqCg+MRTbksxgRCbRa9UwNEHHnLg650PzldRClmdkzFbHU9Eid\nDvARtUAobXHXeFKSTN+94cvcCERwI5Jkjl1+aDrewjAwXSK5ROn13azalz8mpOqJ\nuNGfokYs3wFi3wlkqt54low+w61V2vmGwFU0ip87bORkGTb/1aKtPZ8YoPF84ku2\nnSKJ/09xAgMBAAECggEAZcmYf7g2DfkAMKOcNdpD4MvKG4oHttYnmYMw/14YybDd\n7E1FPt+ZIAs2dyXSxoKKLIfVxyughJtCA4WzAcCDka3+IQQXwAvq1ht/GHeHhBeV\nKyiG858SCniX3aB36mDzL6jMMJa7t+F5zv6RLCKNRgyP/f/hbknXagM+OQK0cv2A\nhyAAjwGEV0+RDWzJbR9qSm5sDsb6UwNpgarwjfyYT9QKPaoglPwZHw3sP+HYnGfa\njzN5kOWAuLdD6ZCjOzBwaVpi8ia4wI2Pf6F28lzNDHlWaBwGJ7KzkJw5ZVDxgpzW\nUcE8QNuKH/LkjSo/DU/rQir64/FfIp8yK/FyUWphYwKBgQD+m9iaN0RJjwpNLxRD\n+HipiVAtg3zkYVUu5X27mAKM/XlKrdOaBCUX1TmJkkpDuTr8M67qvuGyRcNFIfoF\nFvx3RiHH7yjb4SSO4Y6CWxZHg5zkhY0oxkSIrs5WH2wHuAO9U+jntKgUap5eZJ3x\nC2qYoGJco+tyvSEteynDplVVowKBgQD6Zf4GOocyA0123PthPGC+O+tqELcfDzVC\nvDPwux1ZVQyW9sIXmCZ9W4mSt6DW6hAhG1+5qG4kkklu7RDnNUm31qgwgsP6FX0R\n5gTUtuxdOb9ltXol96ZP8iS+JI6p7R9szNQ53d731AqoCiYuEjUuCB0o4cf2n4s/\nOMrs08OP2wKBgGcgVsZ4Fje5MVH7/LhfPvhkfs5AkOisJ+Wb3KaMNpRG4scFy0x5\n21Bg9DItx9jQgPzALlw0vpQHv8UTswI2wkHJbUtfKmyNL9KTt7ZDEK4cuAKzuW5H\niGDYdQjbJ1WlCha4kwCu4tmKKeVP2c1Vc3Kom86sMmTCCFs0pMDzcWMDAoGAN+G/\nOWCif3ThOt/CckbpSEtTFI66b4ITXttltBnuSNuEPcTAOEfKfzuIjmfQy2XdR6Y2\nTNbcDelf3hOmLBNmalLLolfsqMlW6kGtXlOcmImkv2wq4IJOaZUewhiihiXXV462\n5lsvwZte7XWmY63IlIdXCqKo389nYiqojwYLpPUCgYAUQhVcs9zo9u/GRil7sra4\ny1Ted7LjTDmralyMTVqkYe9YQmXkwBnIhez8ic0c5yE0nsGZ2zb3EbTI75rE2sjt\n64f70Mf7RnZza1ADUFiNZeRGU9A31aR2kn+580Ej2lPTRHPEqB9U6iAf0and19xe\njEMUU8SoqwaqrgeiZ/3WbQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "sa-imagepredict@test-green-advisor.iam.gserviceaccount.com",
+  "client_id": "115234986637862908231",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sa-imagepredict%40test-green-advisor.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

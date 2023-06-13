@@ -11,12 +11,19 @@ class ShopController extends Controller
     public function index()
     {
         $shops = Shop::select('id', 'foto', 'nama_barang', 'harga', 'deskripsi', 'referensi')->get();
-        return response()->json($shops);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $shops
+        ]);
     }
 
-    // get specified by id 
+    // get specified by id
     public function show(Shop $shop)
     {
-        return response()->json($shop);
+        return response()->json([
+            'status' => 'success',
+            'data' => $shop
+        ]);
     }
 }

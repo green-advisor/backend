@@ -31,6 +31,9 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
     // get elevation
     Route::get('elevation', [PlantController::class, 'elevation']);
 
+    // predict
+    Route::post('predict', [PlantController::class, 'predict']);
+
     // logout
     Route::delete('logout', [AuthController::class, 'logout']);
 });
