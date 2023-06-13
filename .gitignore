@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+keys/
+app/Http/Controllers/test-green-advisor-2506d44ba890.json
 .env
 .env.backup
 .phpunit.result.cache
