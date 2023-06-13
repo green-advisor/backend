@@ -43,7 +43,7 @@ class PlantController extends Controller
         } elseif ($pembulatan > 2500) {
             $iklim = 'dingin';
         }
-        $saran = Saran::select('foto', 'nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
+        $saran = Saran::select('nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
         return response()->json(
             [
                 'status' => 'success',
@@ -76,13 +76,18 @@ class PlantController extends Controller
 
         $response = Http::get($endpoint);
 
-        $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $response)->get();
+        $responseData = $response->body();
+
+
+        $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $responseData) ->get();
 
         if ($response->successful()) {
-            $responseData = $response->body();
+
+            // $data = ['nama tanaman' => $responseData];
             return response()->json(
                 [
                     'status' => 'success',
+                    'nama_tanaman' => $responseData,
                     'data' => $data
                 ]
             );
