@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AuthController extends BaseController
 {
@@ -46,7 +47,11 @@ class AuthController extends BaseController
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
+            $token = $user->createToken('MyApp');
+            $token->token->expires_at = Carbon::now()->addHours(3);
+            $token->token->save();
+
+            $success['token'] = $token->accessToken;
             $success['name'] =  $user->name;
 
             return $this->sendResponse($success, 'User login successfully.');
