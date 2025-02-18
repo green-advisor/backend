@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('hello', function () {
+    return response()->json(['message' => 'Hello World!']);
+});
+
 Route::middleware('auth:api')->prefix('v1')->group(function () {
 
     // get user profil
@@ -39,5 +43,6 @@ Route::middleware('auth:api')->prefix('v1')->group(function () {
 });
 
 // login and logout
+
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);

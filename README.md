@@ -16,8 +16,8 @@ Sebelum menginstal Laravel, pastikan sistem Anda memiliki prasyarat berikut:
 ### 1. Clone Repository
 Clone repository dengan perintah:
 ```sh
-git clone https://github.com/username/repository.git
-cd repository
+git clone https://github.com/green-advisor/backend.git
+cd backend
 ```
 
 ### 2. Install Dependencies
@@ -48,9 +48,10 @@ php artisan key:generate
 ```
 
 ### 5. Migrasi dan Seeding Database
-Jalankan perintah berikut untuk membuat tabel database:
+Jalankan perintah berikut untuk membuat tabel database dan data dummy:
 ```sh
-php artisan migrate --seed
+php artisan migrate 
+php artisan dn:seed
 ```
 
 ### 6. Jalankan Server

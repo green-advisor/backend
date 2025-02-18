@@ -21,37 +21,81 @@ class PlantController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Tangani jika validasi gagal
             return response()->json(['error' => 'Parameters "long" and "lat" are required.'], 400);
         }
 
-        $long = $request->query('long');
         $lat = $request->query('lat');
-
-        $respon = Http::get('https://maps.googleapis.com/maps/api/elevation/json?locations=' . $long . '%2C' . $lat . '&key=AIzaSyBYoF_txzv3GXIYtPpZD9oTccVfrse0Whw');
-        $data = $respon['results'][0]['elevation'];
-
-        $pembulatan = round($data);
+        $long = $request->query('long');
 
         $iklim = '';
-        if ($pembulatan <= 700) {
-            $iklim = 'panas';
-        } elseif ($pembulatan > 700 && $pembulatan < 1500) {
-            $iklim = 'sedang';
-        } elseif ($pembulatan > 1500 && $pembulatan < 2500) {
-            $iklim = 'sejuk';
-        } elseif ($pembulatan > 2500) {
-            $iklim = 'dingin';
-        }
-        $saran = Saran::select('foto', 'nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
+
+        $url = Http::get('https://api.open-elevation.com/api/v1/lookup?locations=' . $lat . ',' . $long);
+        $elevation = $url['results'][0]['elevation'];
+
+        $iklim = $this->classifyClimate($lat, $elevation);
+        $saran = Saran::select('tanaman', 'iklim')->where('iklim', $iklim)->get();
         return response()->json(
             [
                 'status' => 'success',
+                'elevation' => $elevation,
+                'latitude' => $lat,
+                'longitude' => $long,
+                'iklim' => $iklim,
                 'data' => $saran
-            ]
 
+
+            ]
         );
+
+        // $respon = Http::get('https://maps.googleapis.com/maps/api/elevation/json?locations=' . $long . '%2C' . $lat . '&key=AIzaSyBYoF_txzv3GXIYtPpZD9oTccVfrse0Whw');
+        // $data = $respon['results'][0]['elevation'];
+
+        // https://maps.googleapis.com/maps/api/elevation/json?locations=106.8456%2C-6.2088&key=AIzaSyBYoF_txzv3GXIYtPpZD9oTccVfrse0Whw 
+
+
+        // $pembulatan = round($data);
+
+        // if ($pembulatan <= 700) {
+        //     $iklim = 'panas';
+        // } elseif ($pembulatan > 700 && $pembulatan < 1500) {
+        //     $iklim = 'sedang';
+        // } elseif ($pembulatan > 1500 && $pembulatan < 2500) {
+        //     $iklim = 'sejuk';
+        // } elseif ($pembulatan > 2500) {
+        //     $iklim = 'dingin';
+        // }
+        // $saran = Saran::select('foto', 'nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
+        // return response()->json(
+        //     [
+        //         'status' => 'success',
+        //         'data' => $saran
+        //     ]
+
+        // );
     }
+
+
+    public function classifyClimate($latitude, $elevation)
+    {
+        // Klasifikasi berdasarkan elevation
+        if ($elevation > 2500) {
+            return "dingin";
+        } elseif ($elevation > 1500) {
+            return "sejuk";
+        } elseif ($elevation > 500) {
+            return "sedang";
+        } else {
+            // Klasifikasi berdasarkan latitude jika elevasi rendah
+            if (abs($latitude) < 23.5) {
+                return "panas";
+            } elseif (abs($latitude) < 40) {
+                return "sedang";
+            } else {
+                return "sejuk";
+            }
+        }
+    }
+
 
     // get specified by id 
     public function predict(Request $request)
