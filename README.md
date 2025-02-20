@@ -78,4 +78,4 @@ Sekarang aplikasi Laravel Anda telah terinstal dan siap digunakan!
 
 
 
-![Deskripsi Gambar](public/ARSITEKTUR.png)
+![Deskripsi Gambar](public/diagram.png)
