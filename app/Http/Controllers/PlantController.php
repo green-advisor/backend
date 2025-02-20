@@ -75,7 +75,7 @@ class PlantController extends Controller
     }
 
 
-    public function classifyClimate($latitude, $elevation)
+    private function classifyClimate($latitude, $elevation)
     {
         // Klasifikasi berdasarkan elevation
         if ($elevation > 2500) {
@@ -116,7 +116,7 @@ class PlantController extends Controller
         $filename = basename($imageUrl);
         $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
 
-        $endpoint = 'http://34.128.101.63:81/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
+        $endpoint = 'ip/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
 
         $response = Http::get($endpoint);
 

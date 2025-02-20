@@ -1,4 +1,4 @@
-![Deskripsi Gambar](public/ARSITEKTUR.png)
+
 
 
 
@@ -76,3 +76,6 @@ php artisan view:cache
 
 Sekarang aplikasi Laravel Anda telah terinstal dan siap digunakan!
 
+
+
+![Deskripsi Gambar](public/ARSITEKTUR.png)
