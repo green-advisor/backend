@@ -47,31 +47,7 @@ class PlantController extends Controller
             ]
         );
 
-        // $respon = Http::get('https://maps.googleapis.com/maps/api/elevation/json?locations=' . $long . '%2C' . $lat . '&key=AIzaSyBYoF_txzv3GXIYtPpZD9oTccVfrse0Whw');
-        // $data = $respon['results'][0]['elevation'];
-
-        // https://maps.googleapis.com/maps/api/elevation/json?locations=106.8456%2C-6.2088&key=AIzaSyBYoF_txzv3GXIYtPpZD9oTccVfrse0Whw 
-
-
-        // $pembulatan = round($data);
-
-        // if ($pembulatan <= 700) {
-        //     $iklim = 'panas';
-        // } elseif ($pembulatan > 700 && $pembulatan < 1500) {
-        //     $iklim = 'sedang';
-        // } elseif ($pembulatan > 1500 && $pembulatan < 2500) {
-        //     $iklim = 'sejuk';
-        // } elseif ($pembulatan > 2500) {
-        //     $iklim = 'dingin';
-        // }
-        // $saran = Saran::select('foto', 'nama_tanaman', 'iklim')->where('iklim', $iklim)->get();
-        // return response()->json(
-        //     [
-        //         'status' => 'success',
-        //         'data' => $saran
-        //     ]
-
-        // );
+       
     }
 
 
@@ -108,17 +84,7 @@ class PlantController extends Controller
                 'error' => $validator->errors()
             ], 400);
         }
-        // $image = $request->file('image');
-        // $path = $image->store('images', 'gcs');
-        // $imageUrl = Storage::disk('gcs')->url($path);
-
-
-        // $filename = basename($imageUrl);
-        // $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
-
-        // $endpoint = 'ip/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
-
-        // $response = Http::get($endpoint);
+       
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -146,30 +112,6 @@ class PlantController extends Controller
             ]
         );
 
-        // $response = Http::post( , [
-        //     'file' => $path 
-        // ]);
-
-        // $responseData = $response->body();
-
-        // return $responseData;
-
-
-        // $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $responseData)->get();
-
-        // if ($response->successful()) {
-
-        //     // $data = ['nama tanaman' => $responseData];
-        //     return response()->json(
-        //         [
-        //             'status' => true,
-        //             'nama_tanaman' => $responseData,
-        //             'data' => $data
-        //         ]
-        //     );
-        // } else {
-        //     // $statusCode = $response->status();
-        //     return false;
-        // }
+       
     }
 }
