@@ -17,7 +17,7 @@ RUN apk update && apk add --no-cache \
     nano
 
 # Menginstal extension PHP yang diperlukan oleh Laravel
-RUN docker-php-ext-install pdo_mysql bcmath gd zip
+RUN docker-php-ext-install pdo_mysql bcmath gd zip 
 
 # Menginstal composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -33,14 +33,9 @@ RUN chown -R www-data:www-data \
     /var/www/html/storage \
     /var/www/html/bootstrap/cache
 
-# Men-generate autoload dan cache untuk Laravel
 RUN composer install --no-scripts --no-autoloader
 RUN composer dump-autoload
 RUN php artisan config:cache
 RUN php artisan route:cache
 
-# Expose port yang akan digunakan oleh web server (misalnya port 8000)
 EXPOSE 8000
-
-# Menjalankan perintah saat container dijalankan
-CMD php artisan serve --host=0.0.0.0 --port=8000

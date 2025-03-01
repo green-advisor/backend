@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('hello', function () {
-    return response()->json(['message' => 'Hello World!']);
+    return response()->json(['message' => env('APP_NAME')]);
 });
 
 Route::middleware('auth:api')->prefix('v1')->group(function () {

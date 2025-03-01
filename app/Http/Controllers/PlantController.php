@@ -108,36 +108,68 @@ class PlantController extends Controller
                 'error' => $validator->errors()
             ], 400);
         }
-        $image = $request->file('image');
-        $path = $image->store('images', 'gcs');
-        $imageUrl = Storage::disk('gcs')->url($path);
+        // $image = $request->file('image');
+        // $path = $image->store('images', 'gcs');
+        // $imageUrl = Storage::disk('gcs')->url($path);
 
 
-        $filename = basename($imageUrl);
-        $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
+        // $filename = basename($imageUrl);
+        // $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
 
-        $endpoint = 'ip/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
+        // $endpoint = 'ip/predict?imageurl=' . $imageUrl . '&imagename=' . $filenameWithoutExtension;
 
-        $response = Http::get($endpoint);
+        // $response = Http::get($endpoint);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename); // Simpan di /public/images/
 
-        $responseData = $response->body();
-
-
-        $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $responseData)->get();
-
-        if ($response->successful()) {
-
-            // $data = ['nama tanaman' => $responseData];
-            return response()->json(
-                [
-                    'status' => true,
-                    'nama_tanaman' => $responseData,
-                    'data' => $data
-                ]
-            );
-        } else {
-            // $statusCode = $response->status();
-            return false;
+            $path = public_path("images/$filename");
         }
+
+        $url_ml = 'http://host.docker.internal:5001/predict';
+
+
+        $response = Http::attach(
+            'file',
+            file_get_contents($path),
+            basename($path)
+        )->post($url_ml);
+
+        $data = Plant::select( 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $response['prediction'])->get();
+
+        return response()->json(
+            [
+                'status' => true,
+                'nama_tanaman' => $response['prediction'],
+                'data' => $data
+            ]
+        );
+
+        // $response = Http::post( , [
+        //     'file' => $path 
+        // ]);
+
+        // $responseData = $response->body();
+
+        // return $responseData;
+
+
+        // $data = Plant::select('foto', 'nama_tanaman', 'deskripsi', 'cara_perawatan', 'referensi')->where('nama_tanaman', $responseData)->get();
+
+        // if ($response->successful()) {
+
+        //     // $data = ['nama tanaman' => $responseData];
+        //     return response()->json(
+        //         [
+        //             'status' => true,
+        //             'nama_tanaman' => $responseData,
+        //             'data' => $data
+        //         ]
+        //     );
+        // } else {
+        //     // $statusCode = $response->status();
+        //     return false;
+        // }
     }
 }
